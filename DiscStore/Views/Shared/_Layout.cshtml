@@ -10,23 +10,25 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-                @if (Request.IsAuthenticated)
-                {
-                    <a href='@Url.Action("Logout", "Login")'>
-                        <i class="glyphicon glyphicon-log-out icon"></i>
-                    </a>
+            @if (Request.IsAuthenticated)
+            {
+                <a href='@Url.Action("Logout", "Login")'>
+                    <i class="glyphicon glyphicon-log-out icon"></i>
+                </a>
 
-                }
-                else
-                {
-                    <a href='@Url.Action("Login", "Login")'>
-                        <i class="glyphicon glyphicon-log-in icon"></i>
-                    </a>
-                }
+            }
+            else
+            {
+                <a href='@Url.Action("Index", "Login")'>
+                    <i class="glyphicon glyphicon-log-in icon"></i>
+                </a>
+            }
+            <a href='@Url.Action("Info", "Home")'>
+                <i class="glyphicon glyphicon-info-sign icon"></i>
+            </a>
 
-            </div>
         </div>
-    </div>
+        </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
