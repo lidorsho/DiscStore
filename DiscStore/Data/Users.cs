@@ -7,30 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL
+namespace DiscStore.Data
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Artists
+    public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Artists()
+        public Users()
         {
-            this.Discs = new HashSet<Discs>();
-            this.GenresLinks = new HashSet<ARTISTS_GENRES_LINKS>();
+            this.Orders = new HashSet<Orders>();
         }
     
-        public int ArtistID { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public string Location { get; set; }
-        public string Language { get; set; }
-        public string ImgPath { get; set; }
+        public int UserID { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public bool isAdmin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Discs> Discs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ARTISTS_GENRES_LINKS> GenresLinks { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

@@ -7,18 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL
+namespace DiscStore.Data
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ARTISTS_GENRES_LINKS
+    public partial class Orders
     {
-        public int LinkID { get; set; }
-        public int GenreID { get; set; }
-        public int ArtistID { get; set; }
+        public int OrderID { get; set; }
+        public int UserID { get; set; }
+        public System.DateTime OrderDate { get; set; }
+        public int DiscID { get; set; }
+        public int StoreID { get; set; }
     
-        public virtual Artists Artists { get; set; }
-        public virtual Genres Genres { get; set; }
+        public virtual Discs Discs { get; set; }
+        public virtual Stores Stores { get; set; }
+        public virtual Users Users { get; set; }
     }
 }
