@@ -1,0 +1,52 @@
+﻿@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#loginBtn').on('click', function () {
+                var userName = $('#userNameInput').val();
+                var password = $('#passwordInput').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Login/Login',
+                    data: {
+                        userName: userName,
+                        password: password
+                    },
+                    success: function () {
+                        document.location.href = "/";
+                    },
+                    error: function () {
+                        alert("user doesn't exist!");
+                    }
+                });
+            });
+        });
+
+    </script>
+}
+
+<div class="loginContainer">
+    <div class="row">
+        <div class="col-lg-12">
+            <span class="loginText">Login via user name and password</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input class="loginInput" type="text" placeholder="Enter user name" id="userNameInput" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input class="loginInput" type="password" placeholder="Enter user password" id="passwordInput" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <button id="loginBtn" class="btn btn-success">Login</button>
+        </div>
+    </div>
+</div>
+
+
+

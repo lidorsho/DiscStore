@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Info";
+}
+
+<script>
+	(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = 'https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v3.1';
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+<div style="text-align: center;">
+    <h2>A little bit about us...</h2>
+    <div style="text-align: left; padding-left:200px; padding-right:200px;">
+        <p>
+            Disc Store is the first, the largest and the cheapest CD store in Israel, it's also one of the last independent music stores left in the country.
+        </p>
+        <p>
+            The store was established at the Dizengoff Center mall in Tel Aviv in 1986 and is still located there. Over the years Disc Store has become an institution for the music-loving community in Israel.
+        </p>
+        <p>
+            At Disc Store we carry large selection of CDs and Vinyl records from all genres and styles. We take pride for having the best prices available in the market alongside a professional team of consultants with an extensive musical knowledge and background that provides personal attention to each and every customer.
+        </p>
+    </div>
+
+    <img src="~/Images/disc.png" style="width: 400px;" />
+
+    <div class="row">
+        <video controls class="film" poster="~/Images/record.jpg">
+            <source src="~/Videos/disc.mp4" type="video/mp4" />
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+
+    <img src="~/Images/disc.png" style="width: 400px;" />
+
+    <div class="row">
+        <p>Don't forget to like us on Facebook <i class="glyphicon glyphicon-thumbs-up"></i></p>
+        <div class="fb-page" data-href="https://www.facebook.com/Webstore-287749472066314/" data-width="450"
+             data-height="700px" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false"
+             data-show-facepile="true"><blockquote cite="https://www.facebook.com/Webstore-287749472066314/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Webstore-287749472066314/">‏‎Webstore‎‏</a></blockquote></div>
+    </div>
+    <img src="~/Images/disc.png" style="width: 400px;" />
+    <div>
+        <p>Feel free to contact us</p>
+        <p><i class="glyphicon glyphicon-envelope"></i> : onlineShoppingStore@gmail.com</p>
+    </div>
+
+</div>
