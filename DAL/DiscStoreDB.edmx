@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DiscStoreDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artists">
+          <Key>
+            <PropertyRef Name="ArtistID" />
+          </Key>
+          <Property Name="ArtistID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="20" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Location" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Language" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="ImgPath" Type="nchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ARTISTS_GENRES_LINKS">
+          <Key>
+            <PropertyRef Name="LinkID" />
+          </Key>
+          <Property Name="LinkID" Type="int" Nullable="false" />
+          <Property Name="GenreID" Type="int" Nullable="false" />
+          <Property Name="ArtistID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Discs">
+          <Key>
+            <PropertyRef Name="DiscID" />
+          </Key>
+          <Property Name="DiscID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="20" />
+          <Property Name="ArtistID" Type="int" Nullable="false" />
+          <Property Name="GenreID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="IssueDate" Type="datetime" Nullable="false" />
+          <Property Name="ImgPath" Type="nchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="int" Nullable="false" />
+          <Property Name="GenreName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="DiscID" Type="int" Nullable="false" />
+          <Property Name="StoreID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stores">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationLongitude " Type="float" Nullable="false" />
+          <Property Name="LocationLatitude " Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Passwod" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="isAdmin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DiscStoreDBModelStoreContainer">
+          <EntitySet Name="Artists" EntityType="Self.Artists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ARTISTS_GENRES_LINKS" EntityType="Self.ARTISTS_GENRES_LINKS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discs" EntityType="Self.Discs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DiscStoreDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Artists">
+          <Key>
+            <PropertyRef Name="ArtistID" />
+          </Key>
+          <Property Name="ArtistID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Language" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ImgPath" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Discs" Relationship="DiscStoreDBModel.DiscsArtists" FromRole="Artists" ToRole="Discs" />
+          <NavigationProperty Name="GenresLinks" Relationship="DiscStoreDBModel.ARTISTS_GENRES_LINKSArtists" FromRole="Artists" ToRole="ARTISTS_GENRES_LINKS" />
+        </EntityType>
+        <EntityType Name="Discs">
+          <Key>
+            <PropertyRef Name="DiscID" />
+          </Key>
+          <Property Name="DiscID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="ArtistID" Type="Int32" Nullable="false" />
+          <Property Name="GenreID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ImgPath" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Artists" Relationship="DiscStoreDBModel.DiscsArtists" FromRole="Discs" ToRole="Artists" />
+          <NavigationProperty Name="Genres" Relationship="DiscStoreDBModel.DiscsGenres" FromRole="Discs" ToRole="Genres" />
+          <NavigationProperty Name="Orders" Relationship="DiscStoreDBModel.OrdersDiscs" FromRole="Discs" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="Int32" Nullable="false" />
+          <Property Name="GenreName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Discs" Relationship="DiscStoreDBModel.DiscsGenres" FromRole="Genres" ToRole="Discs" />
+          <NavigationProperty Name="ArtistsLinks" Relationship="DiscStoreDBModel.ARTISTS_GENRES_LINKSGenres" FromRole="Genres" ToRole="ARTISTS_GENRES_LINKS" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DiscID" Type="Int32" Nullable="false" />
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="DiscStoreDBModel.OrdersUsers" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="Discs" Relationship="DiscStoreDBModel.OrdersDiscs" FromRole="Orders" ToRole="Discs" />
+          <NavigationProperty Name="Stores" Relationship="DiscStoreDBModel.OrdersStores" FromRole="Orders" ToRole="Stores" />
+        </EntityType>
+        <EntityType Name="Stores">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationLongitude_" Type="Double" Nullable="false" />
+          <Property Name="LocationLatitude_" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="DiscStoreDBModel.OrdersStores" FromRole="Stores" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Passwod" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="isAdmin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="DiscStoreDBModel.OrdersUsers" FromRole="Users" ToRole="Orders" />
+        </EntityType>
+        <EntityContainer Name="DiscStoreDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Artists" EntityType="Self.Artists" />
+          <EntitySet Name="Discs" EntityType="Self.Discs" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Stores" EntityType="Self.Stores" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="ARTISTS_GENRES_LINKS" EntityType="DiscStoreDBModel.ARTISTS_GENRES_LINKS" />
+          <AssociationSet Name="OrdersUsers" Association="DiscStoreDBModel.OrdersUsers">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="DiscsArtists" Association="DiscStoreDBModel.DiscsArtists">
+            <End Role="Discs" EntitySet="Discs" />
+            <End Role="Artists" EntitySet="Artists" />
+          </AssociationSet>
+          <AssociationSet Name="DiscsGenres" Association="DiscStoreDBModel.DiscsGenres">
+            <End Role="Discs" EntitySet="Discs" />
+            <End Role="Genres" EntitySet="Genres" />
+          </AssociationSet>
+          <AssociationSet Name="OrdersDiscs" Association="DiscStoreDBModel.OrdersDiscs">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Discs" EntitySet="Discs" />
+          </AssociationSet>
+          <AssociationSet Name="OrdersStores" Association="DiscStoreDBModel.OrdersStores">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Stores" EntitySet="Stores" />
+          </AssociationSet>
+          <AssociationSet Name="ARTISTS_GENRES_LINKSArtists" Association="DiscStoreDBModel.ARTISTS_GENRES_LINKSArtists">
+            <End Role="ARTISTS_GENRES_LINKS" EntitySet="ARTISTS_GENRES_LINKS" />
+            <End Role="Artists" EntitySet="Artists" />
+          </AssociationSet>
+          <AssociationSet Name="ARTISTS_GENRES_LINKSGenres" Association="DiscStoreDBModel.ARTISTS_GENRES_LINKSGenres">
+            <End Role="ARTISTS_GENRES_LINKS" EntitySet="ARTISTS_GENRES_LINKS" />
+            <End Role="Genres" EntitySet="Genres" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ARTISTS_GENRES_LINKS">
+          <Key>
+            <PropertyRef Name="LinkID" />
+          </Key>
+          <Property Name="LinkID" Type="Int32" Nullable="false" />
+          <Property Name="GenreID" Type="Int32" Nullable="false" />
+          <Property Name="ArtistID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Artists" Relationship="DiscStoreDBModel.ARTISTS_GENRES_LINKSArtists" FromRole="ARTISTS_GENRES_LINKS" ToRole="Artists" />
+          <NavigationProperty Name="Genres" Relationship="DiscStoreDBModel.ARTISTS_GENRES_LINKSGenres" FromRole="ARTISTS_GENRES_LINKS" ToRole="Genres" />
+        </EntityType>
+        <Association Name="OrdersUsers">
+          <End Type="DiscStoreDBModel.Orders" Role="Orders" Multiplicity="*" />
+          <End Type="DiscStoreDBModel.Users" Role="Users" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DiscsArtists">
+          <End Type="DiscStoreDBModel.Discs" Role="Discs" Multiplicity="*" />
+          <End Type="DiscStoreDBModel.Artists" Role="Artists" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Artists">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="Discs">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DiscsGenres">
+          <End Type="DiscStoreDBModel.Discs" Role="Discs" Multiplicity="*" />
+          <End Type="DiscStoreDBModel.Genres" Role="Genres" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="GenreID" />
+            </Principal>
+            <Dependent Role="Discs">
+              <PropertyRef Name="GenreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrdersDiscs">
+          <End Type="DiscStoreDBModel.Orders" Role="Orders" Multiplicity="*" />
+          <End Type="DiscStoreDBModel.Discs" Role="Discs" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Discs">
+              <PropertyRef Name="DiscID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="DiscID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrdersStores">
+          <End Type="DiscStoreDBModel.Orders" Role="Orders" Multiplicity="*" />
+          <End Type="DiscStoreDBModel.Stores" Role="Stores" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ARTISTS_GENRES_LINKSArtists">
+          <End Type="DiscStoreDBModel.ARTISTS_GENRES_LINKS" Role="ARTISTS_GENRES_LINKS" Multiplicity="*" />
+          <End Type="DiscStoreDBModel.Artists" Role="Artists" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Artists">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="ARTISTS_GENRES_LINKS">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ARTISTS_GENRES_LINKSGenres">
+          <End Type="DiscStoreDBModel.ARTISTS_GENRES_LINKS" Role="ARTISTS_GENRES_LINKS" Multiplicity="*" />
+          <End Type="DiscStoreDBModel.Genres" Role="Genres" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="GenreID" />
+            </Principal>
+            <Dependent Role="ARTISTS_GENRES_LINKS">
+              <PropertyRef Name="GenreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DiscStoreDBModelStoreContainer" CdmEntityContainer="DiscStoreDBEntities">
+          <EntitySetMapping Name="Artists">
+            <EntityTypeMapping TypeName="DiscStoreDBModel.Artists">
+              <MappingFragment StoreEntitySet="Artists">
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discs">
+            <EntityTypeMapping TypeName="DiscStoreDBModel.Discs">
+              <MappingFragment StoreEntitySet="Discs">
+                <ScalarProperty Name="DiscID" ColumnName="DiscID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="DiscStoreDBModel.Genres">
+              <MappingFragment StoreEntitySet="Genres">
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+                <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DiscStoreDBModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="DiscID" ColumnName="DiscID" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="DiscStoreDBModel.Stores">
+              <MappingFragment StoreEntitySet="Stores">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LocationLongitude_" ColumnName="LocationLongitude " />
+                <ScalarProperty Name="LocationLatitude_" ColumnName="LocationLatitude " />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DiscStoreDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Passwod" ColumnName="Passwod" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ARTISTS_GENRES_LINKS">
+            <EntityTypeMapping TypeName="DiscStoreDBModel.ARTISTS_GENRES_LINKS">
+              <MappingFragment StoreEntitySet="ARTISTS_GENRES_LINKS">
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+                <ScalarProperty Name="LinkID" ColumnName="LinkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="415d002577fb4154881adf6068d34f9a" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="DiscStoreDBModel.Artists" Width="1.875" PointX="0.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiscStoreDBModel.Discs" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiscStoreDBModel.Genres" Width="1.5" PointX="5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiscStoreDBModel.Orders" Width="1.5" PointX="0.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiscStoreDBModel.Stores" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiscStoreDBModel.Users" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiscStoreDBModel.ARTISTS_GENRES_LINKS" Width="1.5" PointX="7.75" PointY="4" />
+        <AssociationConnector Association="DiscStoreDBModel.OrdersUsers" />
+        <AssociationConnector Association="DiscStoreDBModel.DiscsArtists" />
+        <AssociationConnector Association="DiscStoreDBModel.DiscsGenres" />
+        <AssociationConnector Association="DiscStoreDBModel.OrdersDiscs" />
+        <AssociationConnector Association="DiscStoreDBModel.OrdersStores" />
+        <AssociationConnector Association="DiscStoreDBModel.ARTISTS_GENRES_LINKSArtists" />
+        <AssociationConnector Association="DiscStoreDBModel.ARTISTS_GENRES_LINKSGenres" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
