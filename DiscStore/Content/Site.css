@@ -27,7 +27,3 @@ textarea {
     height: 40%;
     width: 40%;
 }
-
-.glyphicon-film:before {
-    content: "\e009";
-}
