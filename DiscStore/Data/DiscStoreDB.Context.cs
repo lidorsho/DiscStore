@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL
+namespace DiscStore.Data
 {
     using System;
     using System.Data.Entity;
@@ -30,7 +30,7 @@ namespace DAL
         public virtual DbSet<Genres> Genres { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Stores> Stores { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<ARTISTS_GENRES_LINKS> ARTISTS_GENRES_LINKS { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

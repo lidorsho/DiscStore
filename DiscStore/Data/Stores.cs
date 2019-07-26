@@ -7,29 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL
+namespace DiscStore.Data
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Discs
+    public partial class Stores
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Discs()
+        public Stores()
         {
             this.Orders = new HashSet<Orders>();
         }
     
-        public int DiscID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
-        public int ArtistID { get; set; }
-        public int GenreID { get; set; }
-        public int Price { get; set; }
-        public System.DateTime IssueDate { get; set; }
-        public string ImgPath { get; set; }
+        public double LocationLongitude_ { get; set; }
+        public double LocationLatitude_ { get; set; }
     
-        public virtual Artists Artists { get; set; }
-        public virtual Genres Genres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
     }

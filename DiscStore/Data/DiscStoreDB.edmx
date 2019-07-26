@@ -69,7 +69,7 @@
           </Key>
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Passwod" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="isAdmin" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DiscStoreDBModelStoreContainer">
@@ -132,9 +132,9 @@
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DiscID" Type="Int32" Nullable="false" />
           <Property Name="StoreID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="DiscStoreDBModel.OrdersUsers" FromRole="Orders" ToRole="Users" />
           <NavigationProperty Name="Discs" Relationship="DiscStoreDBModel.OrdersDiscs" FromRole="Orders" ToRole="Discs" />
           <NavigationProperty Name="Stores" Relationship="DiscStoreDBModel.OrdersStores" FromRole="Orders" ToRole="Stores" />
+          <NavigationProperty Name="Users" Relationship="DiscStoreDBModel.UsersOrders" FromRole="Orders" ToRole="Users" />
         </EntityType>
         <EntityType Name="Stores">
           <Key>
@@ -146,28 +146,13 @@
           <Property Name="LocationLatitude_" Type="Double" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="DiscStoreDBModel.OrdersStores" FromRole="Stores" ToRole="Orders" />
         </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Passwod" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="isAdmin" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="DiscStoreDBModel.OrdersUsers" FromRole="Users" ToRole="Orders" />
-        </EntityType>
         <EntityContainer Name="DiscStoreDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Artists" EntityType="Self.Artists" />
           <EntitySet Name="Discs" EntityType="Self.Discs" />
           <EntitySet Name="Genres" EntityType="Self.Genres" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Stores" EntityType="Self.Stores" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
           <EntitySet Name="ARTISTS_GENRES_LINKS" EntityType="DiscStoreDBModel.ARTISTS_GENRES_LINKS" />
-          <AssociationSet Name="OrdersUsers" Association="DiscStoreDBModel.OrdersUsers">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
           <AssociationSet Name="DiscsArtists" Association="DiscStoreDBModel.DiscsArtists">
             <End Role="Discs" EntitySet="Discs" />
             <End Role="Artists" EntitySet="Artists" />
@@ -192,6 +177,11 @@
             <End Role="ARTISTS_GENRES_LINKS" EntitySet="ARTISTS_GENRES_LINKS" />
             <End Role="Genres" EntitySet="Genres" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="DiscStoreDBModel.Users" />
+          <AssociationSet Name="UsersOrders" Association="DiscStoreDBModel.UsersOrders">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ARTISTS_GENRES_LINKS">
           <Key>
@@ -203,18 +193,6 @@
           <NavigationProperty Name="Artists" Relationship="DiscStoreDBModel.ARTISTS_GENRES_LINKSArtists" FromRole="ARTISTS_GENRES_LINKS" ToRole="Artists" />
           <NavigationProperty Name="Genres" Relationship="DiscStoreDBModel.ARTISTS_GENRES_LINKSGenres" FromRole="ARTISTS_GENRES_LINKS" ToRole="Genres" />
         </EntityType>
-        <Association Name="OrdersUsers">
-          <End Type="DiscStoreDBModel.Orders" Role="Orders" Multiplicity="*" />
-          <End Type="DiscStoreDBModel.Users" Role="Users" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="DiscsArtists">
           <End Type="DiscStoreDBModel.Discs" Role="Discs" Multiplicity="*" />
           <End Type="DiscStoreDBModel.Artists" Role="Artists" Multiplicity="1" />
@@ -287,6 +265,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="isAdmin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="DiscStoreDBModel.UsersOrders" FromRole="Users" ToRole="Orders" />
+        </EntityType>
+        <Association Name="UsersOrders">
+          <End Type="DiscStoreDBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="DiscStoreDBModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -348,22 +348,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="DiscStoreDBModel.Users">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Passwod" ColumnName="Passwod" />
-                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ARTISTS_GENRES_LINKS">
             <EntityTypeMapping TypeName="DiscStoreDBModel.ARTISTS_GENRES_LINKS">
               <MappingFragment StoreEntitySet="ARTISTS_GENRES_LINKS">
                 <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
                 <ScalarProperty Name="GenreID" ColumnName="GenreID" />
                 <ScalarProperty Name="LinkID" ColumnName="LinkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DiscStoreDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
