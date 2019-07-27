@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DiscStore.Models.Store>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Location";
+}
+
+<div style="text-align: center;">
+    <h2>Our Stores:</h2>
+    <div id="map_canvas" style="width:800px; height:500px ; margin: auto;"></div>
+
+</div>
+
+@section Scripts {
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jb63GNFSf3A09oSBt8au0yYkdO1DG-0&callback=Initialize"></script>
+    <script type="text/javascript">
+
+            function Initialize() {
+                var mapOptions = {
+                    zoom: 8,
+                    center: new google.maps.LatLng(32.0740769, 34.7922028),
+                    mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                };
+
+                var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+                $.getJSON('@Url.Action("GetStores", "Map")')
+                    .success(function (stores) {
+                        drawMapMarkers(stores);
+                    });
+
+                function drawMapMarkers(stores) {
+                    stores.forEach(function (store) {
+                        var marker = new google.maps.Marker({
+                            'position': new google.maps.LatLng(store.LocationLatitude, store.LocationLongitude),
+                            'map': map,
+                            'title': store.Name
+                        });
+
+                        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+
+                        var infowindow = new google.maps.InfoWindow({
+                            content: "<div><h4>" +
+                                store.Name + "</h4>" + "<div><p>Opening hours: 9AM - 6PM" +
+                                "</p></div></div>"
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function () {
+                            infowindow.open(map, marker);
+                        });
+                    });
+                }
+            }
+    </script>
+    }

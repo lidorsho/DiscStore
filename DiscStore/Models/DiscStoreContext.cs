@@ -29,5 +29,11 @@ namespace DiscStore.Models
         public System.Data.Entity.DbSet<DiscStore.Models.ArtistGenreLink> ArtistGenreLinks { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<DiscStore.Models.Disc> Discs { get; set; }
+
+        public System.Data.Entity.DbSet<DiscStore.Models.Order> Orders { get; set; }
+
+        public System.Data.Entity.DbSet<DiscStore.Models.Store> Stores { get; set; }
     }
 }
