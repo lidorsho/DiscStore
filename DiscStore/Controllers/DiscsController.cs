@@ -17,8 +17,15 @@ namespace DiscStore.Controllers
         // GET: Discs
         public ActionResult Index()
         {
-            var discs = db.Discs.Include(d => d.Artists).Include(d => d.Genres);
-            return View(discs.ToList());
+            if (User.IsInRole("admin"))
+            {
+                var discs = db.Discs.Include(d => d.Artists).Include(d => d.Genres);
+                return View(discs.ToList());
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Discs/Details/5
@@ -39,9 +46,16 @@ namespace DiscStore.Controllers
         // GET: Discs/Create
         public ActionResult Create()
         {
-            ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name");
-            ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName");
-            return View();
+            if (User.IsInRole("admin"))
+            {
+                ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name");
+                ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName");
+                return View();
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // POST: Discs/Create
@@ -51,33 +65,47 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "DiscID,Name,ArtistID,GenreID,Price,IssueDate,ImgPath")] Disc disc)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("admin"))
             {
-                db.Discs.Add(disc);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.Discs.Add(disc);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", disc.ArtistID);
-            ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName", disc.GenreID);
-            return View(disc);
+                ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", disc.ArtistID);
+                ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName", disc.GenreID);
+                return View(disc);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Discs/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Disc disc = db.Discs.Find(id);
+                if (disc == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", disc.ArtistID);
+                ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName", disc.GenreID);
+                return View(disc);
             }
-            Disc disc = db.Discs.Find(id);
-            if (disc == null)
+            else
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(403, "Forbidden!");
             }
-            ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", disc.ArtistID);
-            ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName", disc.GenreID);
-            return View(disc);
         }
 
         // POST: Discs/Edit/5
@@ -87,30 +115,44 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "DiscID,Name,ArtistID,GenreID,Price,IssueDate,ImgPath")] Disc disc)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("admin"))
             {
-                db.Entry(disc).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(disc).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", disc.ArtistID);
+                ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName", disc.GenreID);
+                return View(disc);
             }
-            ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", disc.ArtistID);
-            ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName", disc.GenreID);
-            return View(disc);
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Discs/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Disc disc = db.Discs.Find(id);
+                if (disc == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(disc);
             }
-            Disc disc = db.Discs.Find(id);
-            if (disc == null)
+            else
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(403, "Forbidden!");
             }
-            return View(disc);
         }
 
         // POST: Discs/Delete/5
@@ -118,10 +160,17 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Disc disc = db.Discs.Find(id);
-            db.Discs.Remove(disc);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("admin"))
+            {
+                Disc disc = db.Discs.Find(id);
+                db.Discs.Remove(disc);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         protected override void Dispose(bool disposing)

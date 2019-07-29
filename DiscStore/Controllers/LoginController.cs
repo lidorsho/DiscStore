@@ -52,7 +52,6 @@ namespace DiscStore.Controllers
         {
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, userName));
-
             claims.Add(new Claim(ClaimTypes.Role, isAdmin ? "admin" : "user"));
             var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
 
@@ -62,10 +61,19 @@ namespace DiscStore.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
-            /*TODO
-             * 
-             */
-            return new HttpStatusCodeResult(501, "err");
+            AuthenticationManager.SignOut();
+            Session["UserID"] = null;
+            Session["UserOrder"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult IsAdmin()
+        {
+            AuthenticationManager.SignOut();
+            Session["UserID"] = null;
+            Session["UserOrder"] = null;
+            return RedirectToAction("Index", "Home");
         }
     }
 }
