@@ -17,10 +17,17 @@ namespace DiscStore.Controllers
         // GET: Discs
         public ActionResult Index()
         {
-            var discs = db.Discs.Include(d => d.Artists).Include(d => d.Genres);
+            //var discs = db.Discs.Include(d => d.Artists).Include(d => d.Genres);
+            List<Disc> discs = new List<Disc>();
+            discs.Add(new Disc() { Name = "Michael jackson", Price = 20, ImgPath = "./Images/michael jackson bad.jpg" });
             return View(discs.ToList());
+            //return View("Create", new List<Item>() { item });
         }
 
+        public List<Disc> Filter(int artistID)
+        {
+            return db.Discs.Where(disc => disc.Artists.ArtistID == artistID).ToList<Disc>();
+        }
         // GET: Discs/Details/5
         public ActionResult Details(int? id)
         {
