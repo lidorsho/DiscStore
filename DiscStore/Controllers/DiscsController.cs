@@ -28,6 +28,10 @@ namespace DiscStore.Controllers
             }
         }
 
+        public List<Disc> Filter(int artistID)
+        {
+            return db.Discs.Where(disc => disc.Artists.ArtistID == artistID).ToList<Disc>();
+        }
         // GET: Discs/Details/5
         public ActionResult Details(int? id)
         {
