@@ -17,7 +17,14 @@ namespace DiscStore.Controllers
         // GET: Stores
         public ActionResult Index()
         {
-            return View(db.Stores.ToList());
+            if (User.IsInRole("admin"))
+            {
+                return View(db.Stores.ToList());
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Stores/Details/5
@@ -38,7 +45,14 @@ namespace DiscStore.Controllers
         // GET: Stores/Create
         public ActionResult Create()
         {
-            return View();
+            if (User.IsInRole("admin"))
+            {
+                return View();
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // POST: Stores/Create
@@ -48,29 +62,43 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,LocationLongitude,LocationLatitude")] Store store)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("admin"))
             {
-                db.Stores.Add(store);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.Stores.Add(store);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View(store);
+                return View(store);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Stores/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Store store = db.Stores.Find(id);
+                if (store == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(store);
             }
-            Store store = db.Stores.Find(id);
-            if (store == null)
+            else
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(403, "Forbidden!");
             }
-            return View(store);
         }
 
         // POST: Stores/Edit/5
@@ -80,28 +108,42 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,LocationLongitude,LocationLatitude")] Store store)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("admin"))
             {
-                db.Entry(store).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(store).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(store);
             }
-            return View(store);
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Stores/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Store store = db.Stores.Find(id);
+                if (store == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(store);
             }
-            Store store = db.Stores.Find(id);
-            if (store == null)
+            else
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(403, "Forbidden!");
             }
-            return View(store);
         }
 
         // POST: Stores/Delete/5

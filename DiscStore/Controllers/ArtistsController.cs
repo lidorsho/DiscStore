@@ -17,28 +17,50 @@ namespace DiscStore.Controllers
         // GET: Artists
         public ActionResult Index()
         {
-            return View(db.Artists.ToList());
+            if (User.IsInRole("admin"))
+            {
+                return View(db.Artists.ToList());
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
+
         }
 
         // GET: Artists/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Artist artist = db.Artists.Find(id);
+                if (artist == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(artist);
             }
-            Artist artist = db.Artists.Find(id);
-            if (artist == null)
+            else
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(403, "Forbidden!");
             }
-            return View(artist);
         }
 
         // GET: Artists/Create
         public ActionResult Create()
         {
-            return View();
+            if (User.IsInRole("admin"))
+            {
+                return View();
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // POST: Artists/Create
@@ -48,29 +70,43 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ArtistID,Name,Age,Location,Language,ImgPath")] Artist artist)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("admin"))
             {
-                db.Artists.Add(artist);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.Artists.Add(artist);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View(artist);
+                return View(artist);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Artists/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Artist artist = db.Artists.Find(id);
+                if (artist == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(artist);
             }
-            Artist artist = db.Artists.Find(id);
-            if (artist == null)
+            else
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(403, "Forbidden!");
             }
-            return View(artist);
         }
 
         // POST: Artists/Edit/5
@@ -80,28 +116,42 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ArtistID,Name,Age,Location,Language,ImgPath")] Artist artist)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("admin"))
             {
-                db.Entry(artist).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(artist).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(artist);
             }
-            return View(artist);
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Artists/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Artist artist = db.Artists.Find(id);
+                if (artist == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(artist);
             }
-            Artist artist = db.Artists.Find(id);
-            if (artist == null)
+            else
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(403, "Forbidden!");
             }
-            return View(artist);
         }
 
         // POST: Artists/Delete/5
@@ -109,10 +159,17 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Artist artist = db.Artists.Find(id);
-            db.Artists.Remove(artist);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("admin"))
+            {
+                Artist artist = db.Artists.Find(id);
+                db.Artists.Remove(artist);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         protected override void Dispose(bool disposing)

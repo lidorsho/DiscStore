@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DiscStore.Models;
+using Microsoft.AspNet.Identity;
 
 namespace DiscStore.Controllers
 {
@@ -17,7 +18,15 @@ namespace DiscStore.Controllers
         // GET: Genres
         public ActionResult Index()
         {
-            return View(db.Genres.ToList());
+            if (User.IsInRole("admin"))
+            {
+                return View(db.Genres.ToList());
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
+
         }
 
         // GET: Genres/Details/5
@@ -38,7 +47,14 @@ namespace DiscStore.Controllers
         // GET: Genres/Create
         public ActionResult Create()
         {
-            return View();
+            if (User.IsInRole("admin"))
+            {
+                return View();
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // POST: Genres/Create
@@ -48,29 +64,42 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "GenreID,GenreName,Description")] Genre genre)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("admin"))
             {
-                db.Genres.Add(genre);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Genres.Add(genre);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(genre);
             }
-
-            return View(genre);
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Genres/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Genre genre = db.Genres.Find(id);
+                if (genre == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(genre);
             }
-            Genre genre = db.Genres.Find(id);
-            if (genre == null)
+            else
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(403, "Forbidden!");
             }
-            return View(genre);
         }
 
         // POST: Genres/Edit/5
@@ -80,28 +109,42 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "GenreID,GenreName,Description")] Genre genre)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("admin"))
             {
-                db.Entry(genre).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(genre).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(genre);
             }
-            return View(genre);
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         // GET: Genres/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Genre genre = db.Genres.Find(id);
+                if (genre == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(genre);
             }
-            Genre genre = db.Genres.Find(id);
-            if (genre == null)
+            else
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(403, "Forbidden!");
             }
-            return View(genre);
         }
 
         // POST: Genres/Delete/5
@@ -109,10 +152,17 @@ namespace DiscStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Genre genre = db.Genres.Find(id);
-            db.Genres.Remove(genre);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("admin"))
+            {
+                Genre genre = db.Genres.Find(id);
+                db.Genres.Remove(genre);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
         }
 
         protected override void Dispose(bool disposing)
