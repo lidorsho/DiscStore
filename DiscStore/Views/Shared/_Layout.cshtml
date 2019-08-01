@@ -15,27 +15,42 @@
     <nav class="navbar navbar-inverse" style="margin:0">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">DiscStore</a>
+                <a class="navbar-brand" href="/">DiscStore</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a @Url.Action("Info", "Home")>
-                        Home
-                    </a>
+                    @Html.ActionLink("Info", "Home", "Home")
                 </li>
-                <li>
-                    <a @Html.ActionLink("Discs", "Index", "Discs") </a>
-                </li>
-                <li><a href="#">Page 2</a></li>
-            </ul>
+                <li>@Html.ActionLink("Discs", "Index", "Discs")</li>
+
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.IsInRole("admin"))
+                    {
+                            <li>@Html.ActionLink("Manage Genres", "Index", "Genres")</li>
+                            <li>@Html.ActionLink("Manage Discs", "Index", "Discs")</li>
+                            <li>@Html.ActionLink("Manage Artists", "Index", "Artists")</li>
+                            <li>@Html.ActionLink("Manage Stores", "Index", "Stores")</li>
+                            <li>@Html.ActionLink("Manage Users", "Index", "Users")</li>
+                    }
+                }
+
+                    </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href='@Url.Action("Index", "Map")'>
                         <i class="glyphicon glyphicon-map-marker"></i>
                     </a>
                 </li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                @if (!Request.IsAuthenticated)
+                {
+                    <li><a href="@Url.Action("SingUp", "Login")"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="@Url.Action("Index", "Login")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("Logout", "Login")"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                }
             </ul>
         </div>
     </nav>
