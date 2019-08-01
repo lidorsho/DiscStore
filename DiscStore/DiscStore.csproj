@@ -201,6 +201,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Data\Artists.cs">
@@ -323,7 +324,7 @@
     <Content Include="Views\Genres\Delete.cshtml" />
     <Content Include="Views\Genres\Details.cshtml" />
     <Content Include="Views\Genres\Edit.cshtml" />
-    <Content Include="Views\Genres\Index.cshtml" />
+    <Content Include="Views\Genres\Manage.cshtml" />
     <Content Include="Views\ArtistGenreLinks\Create.cshtml" />
     <Content Include="Views\ArtistGenreLinks\Delete.cshtml" />
     <Content Include="Views\ArtistGenreLinks\Details.cshtml" />
@@ -333,7 +334,7 @@
     <Content Include="Views\Artists\Delete.cshtml" />
     <Content Include="Views\Artists\Details.cshtml" />
     <Content Include="Views\Artists\Edit.cshtml" />
-    <Content Include="Views\Artists\Index.cshtml" />
+    <Content Include="Views\Artists\Manage.cshtml" />
     <Content Include="Views\Discs\Create.cshtml" />
     <Content Include="Views\Discs\Delete.cshtml" />
     <Content Include="Views\Discs\Details.cshtml" />
@@ -348,16 +349,19 @@
     <Content Include="Views\Stores\Delete.cshtml" />
     <Content Include="Views\Stores\Details.cshtml" />
     <Content Include="Views\Stores\Edit.cshtml" />
-    <Content Include="Views\Stores\Index.cshtml" />
+    <Content Include="Views\Stores\Manage.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
+    <Content Include="Views\Discs\Manage.cshtml" />
+    <Content Include="Views\Orders\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Videos\" />
+    <Folder Include="Views\Statistics\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -27,15 +27,16 @@
                 {
                     if (User.IsInRole("admin"))
                     {
-                            <li>@Html.ActionLink("Manage Genres", "Index", "Genres")</li>
-                            <li>@Html.ActionLink("Manage Discs", "Index", "Discs")</li>
-                            <li>@Html.ActionLink("Manage Artists", "Index", "Artists")</li>
-                            <li>@Html.ActionLink("Manage Stores", "Index", "Stores")</li>
-                            <li>@Html.ActionLink("Manage Users", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Manage Genres", "Manage", "Genres")</li>
+                        <li>@Html.ActionLink("Manage Discs", "Manage", "Discs")</li>
+                        <li>@Html.ActionLink("Manage Artists", "Manage", "Artists")</li>
+                        <li>@Html.ActionLink("Manage Stores", "Manage", "Stores")</li>
+                        <li>@Html.ActionLink("Manage Users", "Manage", "Users")</li>
+                        <li>@Html.ActionLink("Manage Orders", "Manage", "Orders")</li>
                     }
                 }
 
-                    </ul>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href='@Url.Action("Index", "Map")'>
