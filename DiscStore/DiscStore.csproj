@@ -358,10 +358,10 @@
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Discs\Manage.cshtml" />
     <Content Include="Views\Orders\Manage.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Videos\" />
-    <Folder Include="Views\Statistics\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
