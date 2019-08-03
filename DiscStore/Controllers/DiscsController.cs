@@ -27,6 +27,18 @@ namespace DiscStore.Controllers
                 return new HttpStatusCodeResult(403, "Forbidden!");
             }
         }
+        public ActionResult MAnage()
+        {
+            if (User.IsInRole("admin"))
+            {
+                var discs = db.Discs.Include(d => d.Artists).Include(d => d.Genres);
+                return View(discs.ToList());
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
+        }
 
         public List<Disc> Filter(int artistID)
         {
