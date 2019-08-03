@@ -1,3 +1,4 @@
+
 CREATE TABLE [dbo].[Artists] (
     [ArtistID]  INT           NOT NULL IDENTITY(1,1),
     [Name]		NCHAR (20) NULL,
@@ -25,13 +26,16 @@ CREATE TABLE [dbo].[Stores] (
 );
 
 CREATE TABLE [dbo].[Orders] (
-    [OrderID]  INT           NOT NULL IDENTITY(1,1),
-    [UserID]        INT      NOT NULL,
-    [OrderDate]     DATETIME NOT NULL,
-    [DiscID]	    INT    NOT NULL,
-    [StoreID]  INT NOT NULL,
-    PRIMARY KEY CLUSTERED ([OrderID] ASC),
+    [ID]   INT      IDENTITY (1, 1) NOT NULL,
+	[OrderID] INT		 NOT NULL,
+    [UserID]    INT      NOT NULL,
+    [OrderDate] DATETIME NOT NULL,
+    [DiscID]    INT      NOT NULL,
+    [StoreID]   INT      NOT NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC)
 );
+
+
 
 CREATE TABLE [dbo].[Genres] (
     [GenreID]   INT        NOT NULL IDENTITY(1,1),

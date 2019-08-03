@@ -1,0 +1,75 @@
+﻿@model IEnumerable<DiscStore.Models.Store>
+@{
+    ViewBag.Title = "Checkout";
+}
+@section Scripts {
+    <script type="text/javascript">$(document).ready(function () {
+			getUserName();
+			getTotalOrderPrice();
+		});
+
+		function getUserName() {
+			$.ajax({
+				type: "POST",
+				url: '/ShoppingCart/GetUserName',
+				success: function (res) {
+					$("#userName").html('Hey, ' + res + '!');
+				}
+			});
+		}
+
+		function getTotalOrderPrice() {
+			$.ajax({
+				type: "POST",
+				url: '/ShoppingCart/GetTotalPrice',
+				success: function (res) {
+					$("#price").html('You\'re total order price is ' + res.toFixed(2) + '₪');
+				}
+			});
+		}
+
+		$('form').submit(function () {
+			if (!$('#store').val()) {
+				alert('Choose a store to continue');
+				return false;
+			}
+
+			return true;
+        });
+
+        function submitOrder(storeId) {
+                $.ajax({
+                    type: "POST",
+                    url: '/ShoppingCart/SaveOrder',
+                    data: {
+                        store: storeId
+                    } 
+                });
+            });
+        });
+
+    </script>
+}
+    <div style="text-align: center;">
+        <h2>Checkout</h2>
+        <h4 id="userName"></h4>
+        <p id="price"></p>
+        <p>Please choose the store you want to pick to order from:</p>
+        @using (Html.BeginForm("SaveOrder", "ShoppingCart", FormMethod.Get))
+        {
+            <div class="row">
+                <select name="store" id="store" class="selectpicker" data-style="btn-danger"
+                        multiple data-max-options="3">
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="row">
+                <input onsubmit="checkForm()" type="submit" style="width: 150px; margin-top:15px;" class="btn btn-primary" value="Submit the order" />
+            </div>
+        }
+        </section>
+    </div>

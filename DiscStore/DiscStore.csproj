@@ -201,6 +201,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -277,10 +278,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Anti.png" />
+    <Content Include="Images\Divide_cover.png" />
     <Content Include="Images\edSheeran.jpg" />
     <Content Include="Images\Elton John greatest hitsjpg.jpg" />
     <Content Include="Images\michael jackson bad.jpg" />
     <Content Include="Images\ny.jpg" />
+    <Content Include="Images\x.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -360,6 +364,9 @@
     <Content Include="Views\Discs\Manage.cshtml" />
     <Content Include="Views\Orders\Manage.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\Checkout.cshtml" />
+    <Content Include="Views\ShoppingCart\Completed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Videos\" />

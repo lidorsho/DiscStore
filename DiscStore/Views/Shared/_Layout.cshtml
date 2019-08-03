@@ -45,6 +45,11 @@
                         <i class="glyphicon glyphicon-map-marker"></i>
                     </a>
                 </li>
+                <li>
+                    <a href='@Url.Action("Index", "ShoppingCart")'>
+                        <i class="glyphicon glyphicon-shopping-cart icon"></i>
+                    </a>
+                </li>
                 @if (!Request.IsAuthenticated)
                 {
                     <li><a href="@Url.Action("SingUp", "Login")"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
