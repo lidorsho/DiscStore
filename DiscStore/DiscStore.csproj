@@ -276,6 +276,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\edSheeran.jpg" />
     <Content Include="Images\Elton John greatest hitsjpg.jpg" />
     <Content Include="Images\michael jackson bad.jpg" />
     <Content Include="Images\ny.jpg" />
