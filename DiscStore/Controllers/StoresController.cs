@@ -26,6 +26,17 @@ namespace DiscStore.Controllers
                 return new HttpStatusCodeResult(403, "Forbidden!");
             }
         }
+        public ActionResult Manage()
+        {
+            if (User.IsInRole("admin"))
+            {
+                return View(db.Stores.ToList());
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
+        }
 
         // GET: Stores/Details/5
         public ActionResult Details(int? id)

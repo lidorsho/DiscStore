@@ -28,6 +28,18 @@ namespace DiscStore.Controllers
             }
 
         }
+        public ActionResult Manage()
+        {
+            if (User.IsInRole("admin"))
+            {
+                return View(db.Genres.ToList());
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
+
+        }
 
         // GET: Genres/Details/5
         public ActionResult Details(int? id)

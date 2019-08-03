@@ -27,6 +27,18 @@ namespace DiscStore.Controllers
             }
 
         }
+        public ActionResult Manage()
+        {
+            if (User.IsInRole("admin"))
+            {
+                return View(db.Artists.ToList());
+            }
+            else
+            {
+                return new HttpStatusCodeResult(403, "Forbidden!");
+            }
+
+        }
 
         // GET: Artists/Details/5
         public ActionResult Details(int? id)

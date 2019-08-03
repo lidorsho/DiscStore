@@ -20,6 +20,11 @@ namespace DiscStore.Controllers
             var orders = db.Orders.Include(o => o.Discs).Include(o => o.Stores).Include(o => o.Users);
             return View(orders.ToList());
         }
+        public ActionResult Manage()
+        {
+            var orders = db.Orders;
+            return View(orders.ToList());
+        }
 
         // GET: Orders/Details/5
         public ActionResult Details(int? id)
