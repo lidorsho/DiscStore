@@ -23,6 +23,226 @@
     font-size: 18px;
 }
 
+.displayCol {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+
+.displayRow {
+    content: "";
+    clear: both;
+    display: table;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+}
+
+.aside-style {
+    width: 40%;
+    padding-left: .5rem;
+    margin-left: .5rem;
+    float: right;
+    box-shadow: inset 5px 0 5px -5px #29627e;
+    font-style: italic;
+    color: #29627e;
+    column-count: 2;
+}
+
+.siteTop {
+    background-image: url("../Images/backgroud.jpg");
+    background-position: center;
+    background-repeat: repeat-x;
+    background-size: cover;
+    height: 230px;
+}
+
+@font-face {
+    font-family: 'ProximaNova';
+    src: url('../fonts/ProximaNova-Regular.otf');
+}
+
+body, div, h1, h2, h3, h4 {
+    font-family: 'ProximaNova';
+}
+
+.navbarItem {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.picture {
+    height: 230px;
+    width: 180px;
+}
+
+.saleAlert {
+    color: #FFFFFF;
+    background-color: #5c5cd8;
+    box-shadow: 0.37em 0 0 #5c5cd8, -0.37em 0 0 #5c5cd8;
+    font-family: futura-pt,FuturaStd,Helvetica,Arial,sans-serif;
+    font-size: 32px;
+    line-height: 32px;
+    letter-spacing: 2.8px;
+    font-weight: 700;
+    font-style: italic;
+    text-align: center;
+}
+
+.displayImg {
+    min-width: 200px;
+    max-width: 250px;
+}
+
+.itemLabel {
+    font-weight: bold;
+    margin-left: 40px;
+}
+
+.centerItems {
+    text-align: center;
+}
+
+.itemDisplay {
+    width: 100%;
+}
+
+.weather {
+    padding: 25px 5px 0px 15px;
+    min-width: 30%;
+    max-width: 40%;
+}
+
+.film {
+    height: 40%;
+    width: 40%;
+}
+
+.icon {
+    text-shadow: 2px 2px lightgrey;
+    font-size: 230%;
+    padding: 20px 15px;
+    color: black;
+    float: right;
+}
+
+    .icon:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+.loginText {
+    font-family: "futura-pt",Tahoma,Geneva,Verdana,Arial,sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.2;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
+.btnStyle {
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.editButton:hover {
+    background-color: lightsalmon;
+    color: white;
+}
+
+.addButton:hover {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.delButton:hover {
+    background-color: lightcoral;
+    color: white;
+}
+
+.loginInput {
+    margin-left: 13%;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    height: 40px;
+}
+
+.loginContainer {
+    margin-left: 40%;
+}
+
+#loginBtn {
+    margin-left: 44%;
+}
+
+.createItemContainer {
+    margin-left: 45%;
+}
+
+.createItemText {
+    font-family: "futura-pt",Tahoma,Geneva,Verdana,Arial,sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.2;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
+.homePic {
+    height: 60%;
+    width: 60%;
+    margin-bottom: 20px;
+}
+
+.itemTypeDiv {
+    margin-top: 7px;
+    margin-bottom: 7px
+}
+
+.createItemInput {
+    margin-bottom: 7px;
+}
+
+.createItemImgDiv {
+    margin-bottom: 7px;
+}
+
+#createItemBtn {
+    margin-left: 16%;
+}
+
+
 .navbar navbar-inverse
 {
     margin: 0;

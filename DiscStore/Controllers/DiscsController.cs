@@ -17,15 +17,15 @@ namespace DiscStore.Controllers
         // GET: Discs
         public ActionResult Index()
         {
-            if (User.IsInRole("admin"))
+            //if (User.IsInRole("admin"))
             {
                 var discs = db.Discs.Include(d => d.Artists).Include(d => d.Genres);
                 return View(discs.ToList());
             }
-            else
+            /**else
             {
                 return new HttpStatusCodeResult(403, "Forbidden!");
-            }
+            }**/
         }
 
         public List<Disc> Filter(int artistID)

@@ -1,20 +1,112 @@
 ﻿@model IEnumerable<DiscStore.Models.Disc>
-@Styles.Render("~/Content/Site.css")
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Discs</h2>
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="card">
-            <img src="@Url.Content(item.ImgPath)" alt="Denim Jeans" style="width:100%">
-            <h1>@item.Name</h1>
-            <p class="price">@item.Price</p>
-            <p>Some text about the Disc..</p>
-            <p><button>Add to Cart</button></p>
-        </div>
+@Styles.Render("~/Content/Site.css")
+@section Scripts {
+    <script type="text/javascript">
+    function delItem(item, actionName) {
+        var r = confirm("Are you sure you want to delete this item?")
+        if (r == true) {
+            $.ajax({
+                type: "POST",
+                url: '/Item/DelItem',
+                data: {
+                    item,
+                    actionName
+                },
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        }
     }
 
+    function addToCart(disc, actionName) {
+        if ('@Session["UserID"]' == "" || '@Session["UserID"]' == null) {
+            alert("You have to log in to Order");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: '/Discs/AddDisc',
+                data: {
+                    item,
+                    actionName: actionName
+                },
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        }
+
+    }
+    </script>
+}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            @if (HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString().Contains("Wo"))
+            {
+                <li>@Html.ActionLink("All", "AllWomenItems", "Item")</li>
+                <li>@Html.ActionLink("Shoes", "GetWomenShoes", "Item")</li>
+                <li>@Html.ActionLink("Pants", "GetWomenPants", "Item")</li>
+                <li>@Html.ActionLink("Shirts", "GetWomenShirts", "Item")</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("All", "AllMenItems", "Item")</li>
+                <li>@Html.ActionLink("Shoes", "GetMenShoes", "Item")</li>
+                <li>@Html.ActionLink("Pants", "GetMenPants", "Item")</li>
+                <li>@Html.ActionLink("Shirts", "GetMenShirts", "Item")</li>
+            }
+        </ul>
+    </div>
+</nav>
+
+<section id="filterBox" style="padding-bottom: 50px;">
+    @using (Html.BeginForm(HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString(), "Item", FormMethod.Get))
+    {
+        <div class="form-group">
+            <label class="col-md-1 control-label" for="flowerName">Brand:</label>
+            <div class="col-md-2">
+                <input class="form-control" name="brand" id="brand" type="text" />
+            </div>
+            <label class="col-md-1 control-label" for="flowerName">Min Price:</label>
+            <div class="col-md-2">
+                <input class="form-control" name="minPrice" id="minPrice" type="number" step="0.01" />
+            </div>
+            <label class="col-md-1 control-label" for="flowerName">Max Price:</label>
+            <div class="col-md-2">
+                <input class="form-control" name="maxPrice" id="maxPrice" type="number" step="0.01" />
+            </div>
+        </div>
+
+        <input class="col-md-3 btn btn-ligh" type="submit" style="width: 100px;" value="Filter" />
+    }
+</section>
+
+<div class="displayRow">
+    @foreach (var item in Model)
+    {
+        <div class="displayCol">
+            <img src="@Url.Content(item.ImgPath)" alt="Image" class="displayImg" />
+
+            <p>  @item.Price.ToString("0.00") ₪ | <i class="glyphicon glyphicon-tag"></i> @item.Name</p>
+
+            @if (Request.GetOwinContext().Authentication.User.Claims.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value == "admin")
+            {
+                <button class="btn btn-danger delButton btnStyle" onclick='delItem(@Html.Raw(Json.Encode(item)), "@HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString()")'>
+                    X
+                </button>
+
+                <a href='@Url.Action("Index", "Items", item )'>
+                    <button class="btn btn-warning editButton btnStyle">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </button>
+                </a>
+            }
+        </div>
+    }
 </div>
+
+
