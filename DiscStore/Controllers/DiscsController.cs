@@ -14,19 +14,11 @@ namespace DiscStore.Controllers
     {
         private DiscStoreContext db = new DiscStoreContext();
 
-        // GET: Discs
-        public ActionResult Index()
+        public List<Genre> genres
         {
-            //if (User.IsInRole("admin"))
-            {
-                var discs = db.Discs.Include(d => d.Artists).Include(d => d.Genres);
-                return View(discs.ToList());
-            }
-            /**else
-            {
-                return new HttpStatusCodeResult(403, "Forbidden!");
-            }**/
+            get { return db.Genres.ToList(); }
         }
+
         public ActionResult MAnage()
         {
             if (User.IsInRole("admin"))
@@ -187,6 +179,49 @@ namespace DiscStore.Controllers
             {
                 return new HttpStatusCodeResult(403, "Forbidden!");
             }
+        }
+
+        public ActionResult AllDiscsByGanner(string ganner)
+        {
+            return View("Index", FilterData(ganner, null, null, null));
+        }
+
+        public ActionResult GetAll()
+        {
+            return View("Index", FilterData(null, null, null, null));
+        }
+
+        public ActionResult AllDiscs(string ganner, string artist, int? minPrice, int? maxPrice)
+        {
+            //ViewData["Generes"] = db.Genres.ToList();
+            return View("Index", FilterData(ganner, artist, minPrice, maxPrice));
+        }
+
+        private List<Disc> FilterData(string ganner, string artist, int? minPrice, int? maxPrice)
+        {
+            var allDiscs = db.Discs.Where(x => true);
+
+            if (ganner != null)
+            {
+                allDiscs = allDiscs.Where(x => x.Genres.GenreName == ganner);
+            }
+
+            if (artist != null)
+            {
+                allDiscs = allDiscs.Where(x => x.Artists.Name == artist);
+            }
+
+            if (minPrice.HasValue)
+            {
+                allDiscs = allDiscs.Where(x => x.Price >= minPrice);
+            }
+
+            if (maxPrice.HasValue)
+            {
+                allDiscs = allDiscs.Where(x => x.Price <= maxPrice);
+            }
+
+            return allDiscs.ToList();
         }
 
         protected override void Dispose(bool disposing)

@@ -7,9 +7,6 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
-
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
     <h3>Our top pick for today:</h3>
@@ -23,22 +20,25 @@
                 <li class="active">
                     @Html.ActionLink("Info", "Home", "Home")
                 </li>
-                <li>@Html.ActionLink("Discs", "Index", "Discs")</li>
+               
+                <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "AllDiscs" ?
+                    "active" : "")">@Html.ActionLink("Discs", "AllDiscs", "Discs")
+                </li>
 
-                @if (Request.IsAuthenticated)
-                {
-                    if (User.IsInRole("admin"))
+                    @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Manage Genres", "Manage", "Genres")</li>
-                        <li>@Html.ActionLink("Manage Discs", "Manage", "Discs")</li>
-                        <li>@Html.ActionLink("Manage Artists", "Manage", "Artists")</li>
-                        <li>@Html.ActionLink("Manage Stores", "Manage", "Stores")</li>
-                        <li>@Html.ActionLink("Manage Users", "Manage", "Users")</li>
-                        <li>@Html.ActionLink("Manage Orders", "Manage", "Orders")</li>
+                        if (User.IsInRole("admin"))
+                        {
+                            <li>@Html.ActionLink("Manage Genres", "Manage", "Genres")</li>
+                            <li>@Html.ActionLink("Manage Discs", "Manage", "Discs")</li>
+                            <li>@Html.ActionLink("Manage Artists", "Manage", "Artists")</li>
+                            <li>@Html.ActionLink("Manage Stores", "Manage", "Stores")</li>
+                            <li>@Html.ActionLink("Manage Users", "Manage", "Users")</li>
+                            <li>@Html.ActionLink("Manage Orders", "Manage", "Orders")</li>
+                        }
                     }
-                }
 
-            </ul>
+                </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href='@Url.Action("Index", "Map")'>
@@ -73,8 +73,8 @@
         <hr />
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+    @Scripts.Render("~/Scripts/bootstrap.min.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
