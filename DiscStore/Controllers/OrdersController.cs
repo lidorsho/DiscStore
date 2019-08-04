@@ -61,7 +61,7 @@ namespace DiscStore.Controllers
             {
                 db.Orders.Add(order);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
 
             ViewBag.DiscID = new SelectList(db.Discs, "DiscID", "Name", order.DiscID);

@@ -27,7 +27,7 @@ namespace DiscStore.Controllers
                 return new HttpStatusCodeResult(403, "Forbidden!");
             }
         }
-        public ActionResult MAnage()
+        public ActionResult Manage()
         {
             if (User.IsInRole("admin"))
             {
@@ -87,7 +87,7 @@ namespace DiscStore.Controllers
                 {
                     db.Discs.Add(disc);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
 
                 ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", disc.ArtistID);

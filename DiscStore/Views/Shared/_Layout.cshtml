@@ -12,7 +12,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <h3>Our top pick for today:</h3>
+    <h4>Our top pick for today:</h4>
     <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="120" style="width:100%;max-width:400px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/old-town-road-feat-rm-of-bts-seoul-town-road-remix/1474182253?i=1474182258&app=music"></iframe>
     <nav class="navbar navbar-inverse" style="margin:0">
         <div class="container-fluid">
@@ -50,9 +50,13 @@
                         <i class="glyphicon glyphicon-shopping-cart icon"></i>
                     </a>
                 </li>
+                <li>
+                    <a href='@Url.Action("Index", "Statistics")'>
+                        <i class="glyphicon glyphicon glyphicon-stats icon"></i>
+                    </a>
+                </li>
                 @if (!Request.IsAuthenticated)
                 {
-                    <li><a href="@Url.Action("SingUp", "Login")"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     <li><a href="@Url.Action("Index", "Login")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 }
                 else

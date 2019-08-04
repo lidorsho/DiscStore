@@ -82,7 +82,7 @@ namespace DiscStore.Controllers
                 {
                     db.Genres.Add(genre);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
                 return View(genre);
             }

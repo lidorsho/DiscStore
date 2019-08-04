@@ -79,7 +79,7 @@ namespace DiscStore.Controllers
                 {
                     db.Stores.Add(store);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
 
                 return View(store);
