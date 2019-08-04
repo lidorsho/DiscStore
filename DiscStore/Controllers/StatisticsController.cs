@@ -17,41 +17,66 @@ namespace DiscStore.Controllers
             return View();
         }
 
-        public ActionResult GetOrdersByGanre()
+        public ActionResult GetOrdersByGenre()
         {
-            var ordersByGanredb = db.Orders.Join(db.Discs,
+            var ordersByGenre = db.Orders.Join(db.Discs,
                 o => o.DiscID,
                 d => d.DiscID,
                 (order, disc) => new
                 {
-                    ordID = order.OrderID,
+                    ordID = order.ID,
                     gnrID = disc.GenreID
                 })
                 .Join(db.Genres,
                 o => o.gnrID,
                 g => g.GenreID,
-                (order, ganre) => new
+                (order, genre) => new
                 {
                     ordID = order.ordID,
-                    GenreName = ganre.GenreName
+                    GenreName = genre.GenreName
                 })
                 .GroupBy(o => new { o.GenreName })
-                .Select(o => new { ganreName = o.Key, ordersCount = o.Count() });
-            return Json(new { ordersByGanredb = ordersByGanredb }, JsonRequestBehavior.AllowGet); ;
+                .Select(o => new
+                {
+                    name = o.Key.GenreName,
+                    value = o.Count()
+                })
+                .OrderBy(o => o.value);
+            var ordersCount = new List<int>();
+            var genres = new List<string>();
+
+            ordersByGenre.ToList().ForEach((item) =>
+            {
+                ordersCount.Add(item.value);
+                genres.Add(item.name);
+            });
+            return Json(new { ordersCount = ordersCount, genres = genres, data = ordersByGenre}, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetDiscsByGanre()
+        public ActionResult GetDiscsBygenre()
         {
-            var discsByGanre = db.Discs.Join(db.Genres,
+            var discsBygenre = db.Discs.Join(db.Genres,
                 o => o.GenreID,
                 d => d.GenreID,
-                (disc, ganre) => new
+                (disc, genre) => new
                 {
                     discName = disc.Name,
-                    ganreName = ganre.GenreName
+                    genreName = genre.GenreName
                 })
-                .GroupBy(g => new { g.ganreName })
-                .Select(g => new {ganreName = g.Key,discCount = g.Count()});
-            return Json(new { discsByGanre = discsByGanre }, JsonRequestBehavior.AllowGet); ;
+                .GroupBy(g => new { g.genreName })
+                .Select(g => new
+                {
+                    name = g.Key.genreName,
+                    value = g.Count()
+                })
+                .OrderBy(d => d.value);
+            var discsCount = new List<int>();
+            var genres = new List<string>();
+            discsBygenre.ToList().ForEach((item) =>
+            {
+                discsCount.Add(item.value);
+                genres.Add(item.name);
+            });
+            return Json(new { discsCount = discsCount, genres = genres, data = discsBygenre}, JsonRequestBehavior.AllowGet);
         }
     }
-}
+} 

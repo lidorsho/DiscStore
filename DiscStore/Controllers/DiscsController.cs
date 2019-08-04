@@ -18,8 +18,7 @@ namespace DiscStore.Controllers
         {
             get { return db.Genres.ToList(); }
         }
-
-        public ActionResult MAnage()
+        public ActionResult Manage()
         {
             if (User.IsInRole("admin"))
             {
@@ -79,7 +78,7 @@ namespace DiscStore.Controllers
                 {
                     db.Discs.Add(disc);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
 
                 ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", disc.ArtistID);
