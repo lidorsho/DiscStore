@@ -1,5 +1,6 @@
+
 CREATE TABLE [dbo].[Artists] (
-    [ArtistID]  INT           NOT NULL,
+    [ArtistID]  INT           NOT NULL IDENTITY(1,1),
     [Name]		NCHAR (20) NULL,
     [Age]	    INT    NOT NULL,
     [Location]  NCHAR (30)    NOT NULL,
@@ -9,7 +10,7 @@ CREATE TABLE [dbo].[Artists] (
 );
 
 CREATE TABLE [dbo].[Users] (
-    [UserID]   INT        NOT NULL,
+    [UserID]   INT        NOT NULL IDENTITY(1,1),
     [UserName] NCHAR (10) NOT NULL,
     [Password]  NCHAR (10) NOT NULL,
     [isAdmin]  BIT        NOT NULL,
@@ -17,7 +18,7 @@ CREATE TABLE [dbo].[Users] (
 );
 
 CREATE TABLE [dbo].[Stores] (
-    [ID]                 INT           NOT NULL,
+    [ID]                 INT           NOT NULL IDENTITY(1,1),
     [Name]               NVARCHAR (50) NULL,
     [LocationLongitude ] FLOAT (53)    NOT NULL,
     [LocationLatitude ]  FLOAT (53)    NOT NULL,
@@ -25,23 +26,26 @@ CREATE TABLE [dbo].[Stores] (
 );
 
 CREATE TABLE [dbo].[Orders] (
-    [OrderID]  INT           NOT NULL,
-    [UserID]        INT      NOT NULL,
-    [OrderDate]     DATETIME NOT NULL,
-    [DiscID]	    INT    NOT NULL,
-    [StoreID]  INT NOT NULL,
-    PRIMARY KEY CLUSTERED ([OrderID] ASC),
+    [ID]   INT      IDENTITY (1, 1) NOT NULL,
+	[OrderID] INT		 NOT NULL,
+    [UserID]    INT      NOT NULL,
+    [OrderDate] DATETIME NOT NULL,
+    [DiscID]    INT      NOT NULL,
+    [StoreID]   INT      NOT NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
+
+
 CREATE TABLE [dbo].[Genres] (
-    [GenreID]   INT        NOT NULL,
+    [GenreID]   INT        NOT NULL IDENTITY(1,1),
     [GenreName] NCHAR (10) NOT NULL,
     [Description]  NCHAR (30) NOT NULL,
     PRIMARY KEY CLUSTERED ([GenreID] ASC)
 );
 
 CREATE TABLE [dbo].[Discs] (
-    [DiscID]  INT           NOT NULL,
+    [DiscID]  INT           NOT NULL IDENTITY(1,1),
     [Name]		NCHAR (20) NULL,
     [ArtistID]	    INT    NOT NULL,
     [GenreID]  INT NOT NULL,
@@ -52,7 +56,7 @@ CREATE TABLE [dbo].[Discs] (
 );
 
 CREATE TABLE [dbo].[ARTISTS_GENRES_LINKS] (
-    [LinkID]  INT           NOT NULL,
+    [LinkID]  INT           NOT NULL IDENTITY(1,1),
     [GenreID]		INT NOT NULL,
     [ArtistID]	    INT    NOT NULL,
     PRIMARY KEY CLUSTERED ([LinkID] ASC)
