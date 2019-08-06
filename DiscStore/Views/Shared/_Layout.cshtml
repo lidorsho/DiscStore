@@ -18,7 +18,7 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active">
-                    @Html.ActionLink("Info", "Home", "Home")
+                    @Html.ActionLink("Home", "Home", "Home")
                 </li>
                
                 <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "AllDiscs" ?
@@ -52,12 +52,12 @@
                 </li>
                 <li>
                     <a href='@Url.Action("Index", "ShoppingCart")'>
-                        <i class="glyphicon glyphicon-shopping-cart icon"></i>
+                        <i class="glyphicon glyphicon-shopping-cart"></i>
                     </a>
                 </li>
                 <li>
                     <a href='@Url.Action("Index", "Statistics")'>
-                        <i class="glyphicon glyphicon glyphicon-stats icon"></i>
+                        <i class="glyphicon glyphicon glyphicon-stats"></i>
                     </a>
                 </li>
                 @if (!Request.IsAuthenticated)
