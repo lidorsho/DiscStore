@@ -10,7 +10,7 @@
         if (r == true) {
             $.ajax({
                 type: "POST",
-                url: '/Item/DelItem',
+                url: '/Discs/DelItem',
                 data: {
                     item,
                     actionName
@@ -81,8 +81,6 @@
 </section>
 
 <div class="displayRow">
-        <i class="glyphicon glyphicon-plus"></i>
-    </button>
     @foreach (var item in Model)
     {
         <div class="displayCol">
