@@ -42,7 +42,12 @@ namespace DiscStore.Controllers
         public ActionResult GetTotalPrice()
         {
             double totalPrice = 0;
-            ((List<Disc>)Session["UserOrder"]).ForEach(x => totalPrice += x.Price);
+
+            if (Session["UserOrder"] != null)
+            {
+                ((List<Disc>)Session["UserOrder"]).ForEach(x => totalPrice += x.Price);
+            }
+
             return Json(totalPrice);
         }
 

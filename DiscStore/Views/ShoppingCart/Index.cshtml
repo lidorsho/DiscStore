@@ -103,10 +103,10 @@
 
     @if (Session["UserOrder"] == null || Model?.Count() == 0)
     {
-        <a href='@Url.Action("Index", "Discs")' class="btn btn-warning"><i class="fa fa-angle-left"></i> Start Shopping</a>
+        <a href='@Url.Action("AllDiscs", "Discs")' class="btn btn-warning"><i class="fa fa-angle-left"></i> Start Shopping</a>
     }
     else
     {
-        <a href='@Url.Action("Index", "Discs")' class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+        <a href='@Url.Action("AllDiscs", "Discs")' class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
     }
 </div>
