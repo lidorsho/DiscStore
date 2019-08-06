@@ -20,7 +20,7 @@ namespace DiscStore.Models
 
         public virtual Artist Artists { get; set; }
         public virtual Genre Genres { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+       // public virtual ICollection<Order> Orders { get; set; }
 
         #endregion
     }

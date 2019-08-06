@@ -16,7 +16,7 @@ namespace DiscStore.Models
         public string Location { get; set; }
         public string Language { get; set; }
         public string ImgPath { get; set; }
-        public virtual ICollection<Disc> Discs { get; set;}
+        //public virtual ICollection<Disc> Discs { get; set;}
         public virtual ICollection<ArtistGenreLink> GenresLinks { get; set; }
 
         #endregion

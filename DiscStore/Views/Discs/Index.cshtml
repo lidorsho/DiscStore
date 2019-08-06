@@ -1,12 +1,10 @@
 ﻿@model IEnumerable<DiscStore.Models.Disc>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
- }
+}
 
-@Styles.Render("~/Content/Site.css")
 @section Scripts {
-    <script type="text/javascript"></script>
-    <script>
+    <script type="text/javascript">
     function delItem(item, actionName) {
         var r = confirm("Are you sure you want to delete this item?")
         if (r == true) {
@@ -22,18 +20,18 @@
                 }
             });
         }
-    }
+        };
 
-    function click() {
+        function adiClick(actionName) {
             alert("adi");
-        }
+        };
 
         function addToCart(item, actionName)
         {
         if ('@Session["UserID"]' == "" || '@Session["UserID"]' == null) {
             alert("You have to log in to Order");
-        }
-        else {
+            }
+            if(true) {
             $.ajax({
                 type: "POST",
                 url: '/Discs/AddDisc',
@@ -42,19 +40,13 @@
                     actionName: actionName
                 },
                 success: function () {
+                     alert("Go to shopping bag");
                     window.location.reload();
                 }
             });
             }
         };
 
-
-
-         $("#add").click( function()
-           {
-             alert('button clicked');
-           }
-        );
     </script>
 }
 <nav class="navbar navbar-default">
@@ -92,28 +84,30 @@
 </section>
 
 <div class="displayRow">
+        <i class="glyphicon glyphicon-plus"></i>
+    </button>
     @foreach (var item in Model)
     {
-    <div class="displayCol">
-        <img src="@Url.Content(item.ImgPath)" alt="Image" class="displayImg" />
+        <div class="displayCol">
+            <img src="@Url.Content(item.ImgPath)" alt="Image" class="displayImg" />
 
-        <p>  @item.Price.ToString("0.00") ₪ | <i class="glyphicon glyphicon-tag"></i> @item.Name</p>
-        <button id="add" class="btn btn-light addButton btnStyle" onclick='click()'>
-            <i class="glyphicon glyphicon-plus"></i>
-        </button>
-        @if (Request.GetOwinContext().Authentication.User.Claims.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value == "admin")
-        {
-            <button class="btn btn-danger delButton btnStyle" onclick='delItem(@Html.Raw(Json.Encode(item)), "@HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString()")'>
-                X
+            <p>  @item.Price.ToString("0.00") ₪ | <i class="glyphicon glyphicon-tag"></i> @item.Name</p>
+            <button class="btn btn-light addButton btnStyle" onclick='addToCart(@Html.Raw(Json.Encode(item)), "@HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString()")'>
+                <i class="glyphicon glyphicon-plus"></i>
             </button>
-
-            <a href='@Url.Action("Index", "Items", item )'>
-                <button class="btn btn-warning editButton btnStyle">
-                    <i class="glyphicon glyphicon-edit"></i>
+            @if (Request.GetOwinContext().Authentication.User.Claims.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value == "admin")
+            {
+                <button class="btn btn-danger delButton btnStyle" onclick='delItem(@Html.Raw(Json.Encode(item)), "@HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString()")'>
+                    X
                 </button>
-            </a>
-        }
-    </div>
+
+                <a href='@Url.Action("Index", "Items", item )'>
+                    <button class="btn btn-warning editButton btnStyle">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </button>
+                </a>
+            }
+        </div>
     }
 </div>
 
