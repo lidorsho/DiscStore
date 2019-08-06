@@ -11,7 +11,7 @@
 </div>
 
 @section Scripts {
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jb63GNFSf3A09oSBt8au0yYkdO1DG-0&callback=Initialize"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD-HgFEQiaQ6OCRUU5OxPnNZtnS_bN5Gg&callback=Initialize"></script>
     <script type="text/javascript">
 
             function Initialize() {
@@ -22,8 +22,7 @@
                 };
 
                 var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
-                $.getJSON('@Url.Action("GetStores", "Map")')
+                 $.getJSON('@Url.Action("GetStores", "Map")')
                     .success(function (stores) {
                         drawMapMarkers(stores);
                     });
@@ -49,6 +48,7 @@
                         });
                     });
                 }
+               
             }
     </script>
     }
