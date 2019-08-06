@@ -22,28 +22,25 @@
         }
         };
 
-        function adiClick(actionName) {
-            alert("adi");
-        };
-
         function addToCart(item, actionName)
         {
-        if ('@Session["UserID"]' == "" || '@Session["UserID"]' == null) {
-            alert("You have to log in to Order");
+            if ('@Session["UserID"]' == "" || '@Session["UserID"]' == null) {
+                alert("You have to log in to Order");
             }
-            if(true) {
-            $.ajax({
-                type: "POST",
-                url: '/Discs/AddDisc',
-                data: {
-                    item,
-                    actionName: actionName
-                },
-                success: function () {
-                     alert("Go to shopping bag");
-                    window.location.reload();
-                }
-            });
+            else {
+                var DiscID = item.DiscID;
+                $.ajax({
+                    type: "POST",
+                    url: '/Discs/AddDisc',
+                    data: {
+                        DiscID,
+                        actionName: actionName
+                    },
+                    success: function () {
+                        alert("Go to shopping bag");
+                        window.location.reload();
+                    }
+                });
             }
         };
 

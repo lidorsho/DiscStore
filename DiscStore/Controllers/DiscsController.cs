@@ -91,6 +91,24 @@ namespace DiscStore.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult AddDisc(int discID, string actionName)
+        {
+                if (Session["UserOrder"] != null)
+                {
+                Disc disc = db.Discs.First(a => a.DiscID == discID);
+                    List<Disc> myOrders = (List<Disc>)Session["UserOrder"];
+                    myOrders.Add(disc);
+                    Session["UserOrder"] = myOrders;
+                }
+                else
+                {
+                Disc disc = db.Discs.First(a => a.DiscID == discID);
+                Session["UserOrder"] = new List<Disc> { disc };
+                }
+
+            return RedirectToAction(actionName);
+        }
         // GET: Discs/Edit/5
         public ActionResult Edit(int? id)
         {
