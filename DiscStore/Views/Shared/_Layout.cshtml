@@ -5,12 +5,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <h4>Our top pick for today:</h4>
-    <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="120" style="width:100%;max-width:400px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/old-town-road-feat-rm-of-bts-seoul-town-road-remix/1474182253?i=1474182258&app=music"></iframe>
+    <div class="row">
+        <div class="col-sm-4">
+            <h4>Our top pick for today:</h4>
+            <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="120" style="width:100%;max-width:400px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/old-town-road-feat-rm-of-bts-seoul-town-road-remix/1474182253?i=1474182258&app=music"></iframe>
+        </div>
+        <div class="col-sm-4">
+            <img class="center-img"  style="width:200px;" src="~/Images/logo.png" />
+        </div>
+    </div>
     <nav class="navbar navbar-inverse" style="margin:0">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -20,25 +28,26 @@
                 <li class="active">
                     @Html.ActionLink("Home", "Home", "Home")
                 </li>
-               
+
                 <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "AllDiscs" ?
-                    "active" : "")">@Html.ActionLink("Discs", "AllDiscs", "Discs")
+                    "active" : "")">
+                    @Html.ActionLink("Discs", "AllDiscs", "Discs")
                 </li>
 
-                    @if (Request.IsAuthenticated)
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.IsInRole("admin"))
                     {
-                        if (User.IsInRole("admin"))
-                        {
-                            <li>@Html.ActionLink("Manage Genres", "Manage", "Genres")</li>
-                            <li>@Html.ActionLink("Manage Discs", "Manage", "Discs")</li>
-                            <li>@Html.ActionLink("Manage Artists", "Manage", "Artists")</li>
-                            <li>@Html.ActionLink("Manage Stores", "Manage", "Stores")</li>
-                            <li>@Html.ActionLink("Manage Users", "Manage", "Users")</li>
-                            <li>@Html.ActionLink("Manage Orders", "Manage", "Orders")</li>
-                        }
+                        <li>@Html.ActionLink("Manage Genres", "Manage", "Genres")</li>
+                        <li>@Html.ActionLink("Manage Discs", "Manage", "Discs")</li>
+                        <li>@Html.ActionLink("Manage Artists", "Manage", "Artists")</li>
+                        <li>@Html.ActionLink("Manage Stores", "Manage", "Stores")</li>
+                        <li>@Html.ActionLink("Manage Users", "Manage", "Users")</li>
+                        <li>@Html.ActionLink("Manage Orders", "Manage", "Orders")</li>
                     }
+                }
 
-                </ul>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href='@Url.Action("Index", "Map")'>
