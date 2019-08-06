@@ -61,7 +61,7 @@ namespace DiscStore.Controllers
 
         public ActionResult SaveOrder(int store)
         {
-            Dictionary<int, Order> newOrderItems = new Dictionary<int, Order>();
+            List<Order> newOrderItems = new List<Order>();
             int userId = (int)Session["UserID"];
 
             List<Disc> orderDiscs = (List<Disc>)Session["UserOrder"];
@@ -69,25 +69,26 @@ namespace DiscStore.Controllers
 
             // Get the next ID
             int nextId = db.Orders.ToList().Count + 1;
+            int orderId = nextId;
 
             foreach (Disc item in orderDiscs)
             {
                 Order newOrderRow = new Order()
                 {
                     ID = nextId,
-                    OrderID = nextId,
+                    OrderID = orderId,
                     UserID = userId,
                     OrderDate = DateTime.Now,
                     DiscID = item.DiscID,
                     StoreID = store
                 };
 
-                newOrderItems.Add(item.DiscID, newOrderRow);
+                newOrderItems.Add(newOrderRow);
                 nextId++;
             }
 
 
-            newOrderItems.Values.ToList().ForEach(orderRow =>
+            newOrderItems.ForEach(orderRow =>
             {
                 db.Orders.Add(orderRow);
                 db.SaveChanges();
