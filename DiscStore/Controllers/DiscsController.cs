@@ -13,11 +13,7 @@ namespace DiscStore.Controllers
     public class DiscsController : Controller
     {
         private DiscStoreContext db = new DiscStoreContext();
-
-        public List<Genre> genres
-        {
-            get { return db.Genres.ToList(); }
-        }
+    
         public ActionResult Manage()
         {
             if (User.IsInRole("admin"))
@@ -35,6 +31,7 @@ namespace DiscStore.Controllers
         {
             return db.Discs.Where(disc => disc.Artists.ArtistID == artistID).ToList<Disc>();
         }
+
         // GET: Discs/Details/5
         public ActionResult Details(int? id)
         {
@@ -208,47 +205,58 @@ namespace DiscStore.Controllers
             }
         }
 
-        public ActionResult AllDiscsByGanner(string ganner)
+        public ActionResult GetPopDiscs(string artist,  int? maxPrice, string name)
         {
-            return View("Index", FilterData(ganner, null, null, null));
+            return View("Index", FilterData("Pop", artist, maxPrice, name));
         }
 
-        public ActionResult GetAll()
+        public ActionResult GetJazzDiscs(string artist,  int? maxPrice, string name)
         {
-            return View("Index", FilterData(null, null, null, null));
+            return View("Index", FilterData("Jazz", artist, maxPrice, name));
         }
 
-        public ActionResult AllDiscs(string ganner, string artist, int? minPrice, int? maxPrice)
+        public ActionResult GetHipHopDiscs(string artist,  int? maxPrice, string name)
         {
-            //ViewData["Generes"] = db.Genres.ToList();
-            return View("Index", FilterData(ganner, artist, minPrice, maxPrice));
+            return View("Index", FilterData("HipHop", artist, maxPrice, name));
         }
 
-        private List<Disc> FilterData(string ganner, string artist, int? minPrice, int? maxPrice)
+        public ActionResult GetRockDiscs(string artist,  int? maxPrice, string name)
         {
-            var allDiscs = db.Discs.Where(x => true);
+            return View("Index", FilterData("Rock", artist, maxPrice, name));
+        }
 
-            if (ganner != null)
+        public ActionResult GetDiscs(string ganner = null, string artist = null, int? maxPrice = null, string name = null)
+        {
+          return View("Index", FilterData(ganner, artist, maxPrice, name));
+        }
+
+        private List<Disc> FilterData(string ganner, string artist,  int? maxPrice, string name)
+        {
+            var _discs = db.Discs.Where(x => true);
+
+            if (name != null && name != "")
             {
-                allDiscs = allDiscs.Where(x => x.Genres.GenreName == ganner);
+                _discs = _discs.Where(x => x.Name.ToLower().Contains(name.ToLower()));
             }
 
-            if (artist != null)
+            if (ganner != null && ganner != "")
             {
-                allDiscs = allDiscs.Where(x => x.Artists.Name == artist);
+                _discs = _discs.Where(x => x.Genres.GenreName == ganner);
             }
 
-            if (minPrice.HasValue)
+            if (artist != null && artist != "")
             {
-                allDiscs = allDiscs.Where(x => x.Price >= minPrice);
+                //artist = artist.ToLower();
+                _discs = _discs.Where(x => x.Artists.Name.ToLower().Contains(artist.ToLower()));
             }
 
             if (maxPrice.HasValue)
             {
-                allDiscs = allDiscs.Where(x => x.Price <= maxPrice);
+                _discs = _discs.Where(x => x.Price <= maxPrice);
             }
+            
 
-            return allDiscs.ToList();
+            return _discs.ToList();
         }
 
         protected override void Dispose(bool disposing)

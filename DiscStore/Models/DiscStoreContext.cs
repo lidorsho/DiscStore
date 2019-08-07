@@ -19,7 +19,7 @@ namespace DiscStore.Models
         public DiscStoreContext() : base("name=DiscStoreContext")
         {
             Database.SetInitializer<DiscStoreContext>(null);
-
+            
         }
 
         public DbSet<Genre> Genres { get; set; }

@@ -25,13 +25,13 @@
                 <a class="navbar-brand" href="/">DiscStore</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li>
                     @Html.ActionLink("Home", "Home", "Home")
                 </li>
 
-                <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "AllDiscs" ?
+                <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "GetDiscs" ?
                     "active" : "")">
-                    @Html.ActionLink("Discs", "AllDiscs", "Discs")
+                    @Html.ActionLink("Discs", "GetDiscs", "Discs")
                 </li>
 
                 @if (Request.IsAuthenticated)
@@ -94,6 +94,7 @@
         @RenderBody()
         <hr />
     </div>
+    <footer>by noa, lidor, eden and adi</footer>
 
     @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")

@@ -278,6 +278,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\back.jpg" />
+    <Content Include="Images\dd.jpg" />
+    <Content Include="Images\ec.jpg" />
     <Content Include="Images\eddisc2.jpg" />
     <Content Include="Images\edsheerandisc1.png" />
     <Content Include="Images\Anti.png" />
@@ -287,6 +290,8 @@
     <Content Include="Images\logo.png" />
     <Content Include="Images\michael jackson bad.jpg" />
     <Content Include="Images\ny.jpg" />
+    <Content Include="Images\rg.jpg" />
+    <Content Include="Images\rt.jpg" />
     <Content Include="Images\x.jpg" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
