@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-sm-4">
             <h4>Our top pick for today:</h4>
-            <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="120" style="width:100%;max-width:400px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/old-town-road-feat-rm-of-bts-seoul-town-road-remix/1474182253?i=1474182258&app=music"></iframe>
+            <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:400px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/old-town-road-feat-rm-of-bts-seoul-town-road-remix/1474182253?i=1474182258&app=music"></iframe>
         </div>
         <div class="col-sm-4">
             <img class="center-img"  style="width:200px;" src="~/Images/logo.png" />
@@ -25,9 +25,6 @@
                 <a class="navbar-brand" href="/">DiscStore</a>
             </div>
             <ul class="nav navbar-nav">
-                <li>
-                    @Html.ActionLink("Home", "Home", "Home")
-                </li>
 
                 <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "GetDiscs" ?
                     "active" : "")">
@@ -36,14 +33,28 @@
 
                 @if (Request.IsAuthenticated)
                 {
+                    <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Suggestions" ?
+                            "active" : "")">
+                        @Html.ActionLink("Recommended for you", "Index", "Suggestions")
+                    </li>
                     if (User.IsInRole("admin"))
                     {
-                        <li>@Html.ActionLink("Manage Genres", "Manage", "Genres")</li>
-                        <li>@Html.ActionLink("Manage Discs", "Manage", "Discs")</li>
-                        <li>@Html.ActionLink("Manage Artists", "Manage", "Artists")</li>
-                        <li>@Html.ActionLink("Manage Stores", "Manage", "Stores")</li>
-                        <li>@Html.ActionLink("Manage Users", "Manage", "Users")</li>
-                        <li>@Html.ActionLink("Manage Orders", "Manage", "Orders")</li>
+                        <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Genres" ?
+                                        "active" : "")">
+                            @Html.ActionLink("Manage Genres", "Manage", "Genres")
+                        </li>
+                        <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Discs" ?
+                                        "active" : "")">
+                            @Html.ActionLink("Manage Discs", "Manage", "Discs")
+                        </li>
+                        <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Artists" ?
+                                        "active" : "")">
+                            @Html.ActionLink("Manage Artists", "Manage", "Artists")
+                        </li>
+                        <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Stores" ?
+                                        "active" : "")">
+                            @Html.ActionLink("Manage Stores", "Manage", "Stores")
+                        </li>
                     }
                 }
 
@@ -94,10 +105,12 @@
         @RenderBody()
         <hr />
     </div>
-    <footer>by noa, lidor, eden and adi</footer>
+    <footer class="footer-copyright text-center py-3">
+        Site by Noa, Lidor, Eden and Adi
+    </footer>
 
-    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
-    @Scripts.Render("~/Scripts/bootstrap.min.js")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+        @Scripts.Render("~/Scripts/bootstrap.min.js")
+        @RenderSection("scripts", required: false)
 </body>
 </html>

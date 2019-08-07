@@ -55,7 +55,7 @@ namespace DiscStore.Controllers
             {
                 db.ArtistGenreLinks.Add(artistGenreLink);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
 
             ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", artistGenreLink.ArtistID);
@@ -91,7 +91,7 @@ namespace DiscStore.Controllers
             {
                 db.Entry(artistGenreLink).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
             ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", artistGenreLink.ArtistID);
             ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName", artistGenreLink.GenreID);
@@ -121,7 +121,7 @@ namespace DiscStore.Controllers
             ArtistGenreLink artistGenreLink = db.ArtistGenreLinks.Find(id);
             db.ArtistGenreLinks.Remove(artistGenreLink);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Manage");
         }
 
         protected override void Dispose(bool disposing)

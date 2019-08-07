@@ -88,7 +88,7 @@ namespace DiscStore.Controllers
                 {
                     db.Artists.Add(artist);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
 
                 return View(artist);
@@ -134,7 +134,7 @@ namespace DiscStore.Controllers
                 {
                     db.Entry(artist).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
                 return View(artist);
             }
@@ -176,7 +176,7 @@ namespace DiscStore.Controllers
                 Artist artist = db.Artists.Find(id);
                 db.Artists.Remove(artist);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
             else
             {

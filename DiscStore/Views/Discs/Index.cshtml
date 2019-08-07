@@ -94,18 +94,6 @@
             <button class="btn btn-light addButton btnStyle" onclick='addToCart(@Html.Raw(Json.Encode(item)), "@HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString()")'>
                 <i class="glyphicon glyphicon-plus"></i>
             </button>
-            @if (Request.GetOwinContext().Authentication.User.Claims.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value == "admin")
-            {
-                <button class="btn btn-danger delButton btnStyle" onclick='delItem(@Html.Raw(Json.Encode(item)), "@HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString()")'>
-                    X
-                </button>
-
-                <a href='@Url.Action("Index", "Items", item )'>
-                    <button class="btn btn-warning editButton btnStyle">
-                        <i class="glyphicon glyphicon-edit"></i>
-                    </button>
-                </a>
-            }
         </div>
     }
 </div>

@@ -6,8 +6,10 @@
 
 <h3>Orders By Genre</h3>
 <div id="pie-chart-ordersByGenre"></div>
+<div id="ordersByGenre-text"></div>
 <h3>Discs By Genre</h3>
 <div id="pie-chart-discsByGenre"></div>
+<div id="discsByGenre-text"></div>
 
 @section Scripts {
     <script src="/Scripts/d3.v3.min.js"></script>
@@ -15,17 +17,13 @@
         $(document).ready(function () {
             var ordersByGenre, discsByGenre;
             $.getJSON("/Statistics/GetOrdersByGenre", (data) => {
-                //$("#1").text(data.ordersCount + ":::" + data.Genres);
-                ordersByGenre = data;
-                initPie('#pie-chart-ordersByGenre', data.data);
+                initPie('#pie-chart-ordersByGenre', '#ordersByGenre-text', data.data);
             })
             $.getJSON("/Statistics/GetDiscsByGenre", (data) => {
-                //$("#2").text(data. + ":::" + data.Genres);
-                discsByGenre = data;
-                initPie('#pie-chart-discsByGenre', data.data);
+                initPie('#pie-chart-discsByGenre', '#discsByGenre-text', data.data);
             })
         })
-        function initPie(divSelector, data) {
+        function initPie(divSelector, divTxtSelector, data) {
 
             var w = 400,
                 h = 400,
@@ -69,6 +67,8 @@
                     thisDonut.select('.percentage').text(function (donut_d) {
                         return (d.data.val / donut_d.total * 100).toFixed(2) + '%';
                     });
+
+                    $(divTxtSelector).find("#"+d.data.value).css({ 'font-weight': 'bold', 'font-size': '120%'});
                 },
 
                 'mouseout': function (d, i, j) {
@@ -77,6 +77,7 @@
                         pathAnim(thisPath, 0);
                     }
                     var thisDonut = vis.select('.type' + j);
+                    $(divTxtSelector).find("#"+d.data.value).css({ 'font-weight': 'normal', 'font-size': '100%' });
                 }
             };
 
@@ -95,9 +96,12 @@
                 .attr("transform", "translate(" + (r + 30) + "," + r + ")");
 
             arcs.append("svg:path")
-                .attr("fill", function (d, i) { return color(i); })
+                .attr("fill", function (d, i) {
+                    $(divTxtSelector).append("<p id='"+d.data.value+"' style='color:"+color(i)+"'>" + d.data.name + "- " + d.data.value + "</p>")
+                    return color(i);
+                })
                 .attr("d", arc)
-
+            /*
             arcs.append("svg:text")
                 .attr("transform", function (d) {
                     var c = arc.centroid(d),
@@ -115,7 +119,7 @@
                         "end" : "start";
                 })
                 .text(function (d, i) { return d.value.toFixed(2) + '-' + d.data.name; });
-
+                */
             arcs.on(eventObj);
 
         }

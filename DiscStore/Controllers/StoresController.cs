@@ -125,7 +125,7 @@ namespace DiscStore.Controllers
                 {
                     db.Entry(store).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
                 return View(store);
             }
@@ -165,7 +165,7 @@ namespace DiscStore.Controllers
             Store store = db.Stores.Find(id);
             db.Stores.Remove(store);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Manage");
         }
 
         protected override void Dispose(bool disposing)

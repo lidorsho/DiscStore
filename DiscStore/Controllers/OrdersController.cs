@@ -99,7 +99,7 @@ namespace DiscStore.Controllers
             {
                 db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
             ViewBag.DiscID = new SelectList(db.Discs, "DiscID", "Name", order.DiscID);
             ViewBag.StoreID = new SelectList(db.Stores, "ID", "Name", order.StoreID);
@@ -130,7 +130,7 @@ namespace DiscStore.Controllers
             Order order = db.Orders.Find(id);
             db.Orders.Remove(order);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Manage");
         }
 
         protected override void Dispose(bool disposing)

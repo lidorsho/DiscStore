@@ -127,7 +127,7 @@ namespace DiscStore.Controllers
                 {
                     db.Entry(genre).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
                 return View(genre);
             }
@@ -169,7 +169,7 @@ namespace DiscStore.Controllers
                 Genre genre = db.Genres.Find(id);
                 db.Genres.Remove(genre);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
             else
             {

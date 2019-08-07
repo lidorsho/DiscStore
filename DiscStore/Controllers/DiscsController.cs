@@ -13,7 +13,12 @@ namespace DiscStore.Controllers
     public class DiscsController : Controller
     {
         private DiscStoreContext db = new DiscStoreContext();
-    
+
+
+        public ActionResult Index()
+        {
+            return RedirectToAction("Manage");
+        }
         public ActionResult Manage()
         {
             if (User.IsInRole("admin"))
@@ -153,7 +158,7 @@ namespace DiscStore.Controllers
                 {
                     db.Entry(disc).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
                 ViewBag.ArtistID = new SelectList(db.Artists, "ArtistID", "Name", disc.ArtistID);
                 ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName", disc.GenreID);
@@ -197,7 +202,7 @@ namespace DiscStore.Controllers
                 Disc disc = db.Discs.Find(id);
                 db.Discs.Remove(disc);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
             else
             {

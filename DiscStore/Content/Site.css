@@ -57,13 +57,10 @@
     height: 230px;
 }
 
-@font-face {
-    font-family: 'ProximaNova';
-    src: url('../fonts/ProximaNova-Regular.otf');
-}
+
 
 body, div, h1, h2, h3, h4 {
-    font-family: 'ProximaNova';
+    font-family: Arial;
 }
 
 .navbarItem {
