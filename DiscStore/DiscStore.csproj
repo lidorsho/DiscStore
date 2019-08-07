@@ -204,6 +204,7 @@
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
+    <Compile Include="Controllers\SuggestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Data\Artists.cs">
       <DependentUpon>DiscStoreDB.tt</DependentUpon>
@@ -381,6 +382,7 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Checkout.cshtml" />
     <Content Include="Views\ShoppingCart\Completed.cshtml" />
+    <Content Include="Views\Suggestions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Videos\" />
