@@ -13,7 +13,21 @@ namespace DiscStore.Controllers
         // GET: Suggestions
         public ActionResult Index()
         {
-            return View(db.Discs.ToList());
+            int userId = (int)Session["UserID"];
+            var lastOrderDisc = db.Orders.Where(x => x.UserID == userId)
+                .OrderBy(x => x.OrderDate)
+                .Select(o => new { DiscID = o.DiscID }).ToList().Last();
+
+            var lastDiscGenre = db.Discs.Where(x => x.DiscID == lastOrderDisc.DiscID)
+                .Select(x => new { genreId = x.GenreID }).ToList().Last();
+
+            var lastDiscArtist = db.Discs.Where(x => x.DiscID == lastOrderDisc.DiscID)
+                .Select(x => new { artistID = x.ArtistID }).ToList().Last();
+
+            var recommendedDiscs = db.Discs.Where(x => x.GenreID == lastDiscGenre.genreId || x.ArtistID == lastDiscArtist.artistID).ToList();
+
+
+            return View(recommendedDiscs);
         }
     }
 }
