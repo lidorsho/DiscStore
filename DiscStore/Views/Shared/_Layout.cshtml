@@ -33,25 +33,25 @@
 
                 @if (Request.IsAuthenticated)
                 {
-                    <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Suggestions" ?
+                    <li class="navbarItem @(ViewContext.RouteData.Values["controller"].ToString() == "Suggestions" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ?
                             "active" : "")">
                         @Html.ActionLink("Recommended for you", "Index", "Suggestions")
                     </li>
                     if (User.IsInRole("admin"))
                     {
-                        <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Genres" ?
+                        <li class="navbarItem @(ViewContext.RouteData.Values["controller"].ToString() == "Genres" && ViewContext.RouteData.Values["Action"].ToString() == "Manage" ?
                                         "active" : "")">
                             @Html.ActionLink("Manage Genres", "Manage", "Genres")
                         </li>
-                        <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Discs" ?
+                        <li class="navbarItem @(ViewContext.RouteData.Values["controller"].ToString() == "Discs" && ViewContext.RouteData.Values["Action"].ToString() == "Manage" ?
                                         "active" : "")">
                             @Html.ActionLink("Manage Discs", "Manage", "Discs")
                         </li>
-                        <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Artists" ?
+                        <li class="navbarItem @(ViewContext.RouteData.Values["controller"].ToString() == "Artists" && ViewContext.RouteData.Values["Action"].ToString() == "Manage" ?
                                         "active" : "")">
                             @Html.ActionLink("Manage Artists", "Manage", "Artists")
                         </li>
-                        <li class="navbarItem @(ViewContext.RouteData.Values["Action"].ToString() == "Stores" ?
+                        <li class="navbarItem @(ViewContext.RouteData.Values["controller"].ToString() == "Stores" && ViewContext.RouteData.Values["Action"].ToString() == "Manage" ?
                                         "active" : "")">
                             @Html.ActionLink("Manage Stores", "Manage", "Stores")
                         </li>
