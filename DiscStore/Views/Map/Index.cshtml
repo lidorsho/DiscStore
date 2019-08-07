@@ -23,9 +23,10 @@
 
                 var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
                  $.getJSON('@Url.Action("GetStores", "Map")')
-                    .success(function (stores) {
+                    .done(function (stores) {
                         drawMapMarkers(stores);
-                    });
+                     }).fail(e => console.log(e))
+                     ;
 
                 function drawMapMarkers(stores) {
                     stores.forEach(function (store) {
