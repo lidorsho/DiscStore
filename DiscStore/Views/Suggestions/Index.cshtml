@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+    <h2>Recommended for you:</h2>
+
+@foreach (var item in Model)
+{
+    <div class="displayCol">
+        <img src="\@item.ImgPath" alt="Image" class="displayImg" />
+
+        <p>  @item.Price.ToString("0.00") ₪ | <i class="glyphicon glyphicon-tag"></i> @item.Name</p>
+        <button class="btn btn-light addButton btnStyle" onclick='addToCart(@Html.Raw(Json.Encode(item)), "@HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString()")'>
+            <i class="glyphicon glyphicon-plus"></i>
+        </button>
+    </div>
+}
