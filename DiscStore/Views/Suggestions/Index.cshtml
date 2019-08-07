@@ -2,7 +2,33 @@
 @{
     ViewBag.Title = "Index";
 }
+@section Scripts {
+    <script type="text/javascript">
 
+        function addToCart(item, actionName)
+        {
+            if ('@Session["UserID"]' == "" || '@Session["UserID"]' == null) {
+                alert("You have to log in to Order");
+            }
+            else {
+                var DiscID = item.DiscID;
+                $.ajax({
+                    type: "POST",
+                    url: '/Discs/AddDisc',
+                    data: {
+                        DiscID,
+                        actionName: actionName
+                    },
+                    success: function () {
+                        alert("Go to shopping bag");
+                        window.location.reload();
+                    }
+                });
+            }
+        };
+
+    </script>
+}
 <h2>Recommended for you:</h2>
 
 
